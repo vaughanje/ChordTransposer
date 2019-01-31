@@ -16,7 +16,6 @@ namespace ChordTransposerWordAdd
         protected virtual void OnTranspositionProgressEvent(int pass, int outOf, int percentComplete) => TranspositionProgressEvent?.Invoke(pass, outOf, percentComplete);
 
         private const string SHARP_INDICATOR = "ShArP";
-        private const string SHARP_INDICATOR_MINOR = "ShArPm";
 
         public void TransposeAllShapesInDocument(Document doc,
 		                                         bool preferSharps,
@@ -45,21 +44,6 @@ namespace ChordTransposerWordAdd
 		{
             //string txt = textRange.Text;
 
-            textRange.Find.Execute("#m",
-                                   Type.Missing,
-                                   Type.Missing,
-                                   Type.Missing,
-                                   Type.Missing,
-                                   Type.Missing,
-                                   Type.Missing,
-                                   Type.Missing,
-                                   Type.Missing,
-                                   SHARP_INDICATOR_MINOR,
-                                   WdReplace.wdReplaceAll,
-                                   Type.Missing,
-                                   Type.Missing,
-                                   Type.Missing,
-                                   Type.Missing);
             textRange.Find.Execute("#",
                                    Type.Missing,
                                    Type.Missing,
@@ -219,7 +203,7 @@ namespace ChordTransposerWordAdd
 
         private static (bool, string) CheckAndAdjustForSharpChord(string text, string wdText)
         {
-            wdText = text.Replace(SHARP_INDICATOR_MINOR, "#").Replace(SHARP_INDICATOR, "#");
+            wdText = text.Replace(SHARP_INDICATOR, "#");
             return (!(wdText == text), wdText);
         }
 
